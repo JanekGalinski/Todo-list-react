@@ -8,7 +8,12 @@ class App extends React.Component {
 
     this.state = {
       todoList: [],
-      newTodoName: '',
+      newTodo: {
+        title: "",
+        description: "",
+        priority: 1,
+        url: "",
+      }
     }
 
   }
@@ -16,12 +21,7 @@ class App extends React.Component {
   getAndRenderTodos = () => {
     axios.get('http://51.75.120.145:3000/todo').then(resp => {
       this.setState({todoList: resp.data});
-      console.log(resp);
     })
-  }
-
-  componentDidMount() {
-    this.getAndRenderTodos();
   }
 
   deleteAndRenderTodos = id => {
@@ -30,23 +30,33 @@ class App extends React.Component {
     })
   }
 
-  addNewTodoAndRerender = () => {
-    const title = this.state.newTodoName;
-    axios.post('http://51.75.120.145:3000/todo', { title }).then(() => {
+  addNewTodoAndRerender = event => {
+    event.preventDefault();
+    const { newTodo } = this.state;
+    newTodo.priority = Math.round(newTodo.priority);
+    axios.post('http://51.75.120.145:3000/todo', newTodo).then(() => {
       this.getAndRenderTodos();
     })
   }
 
-  onInputChange = event => {
-    this.setState({newTodoName: event.target.value});
+  componentDidMount() {
+    this.getAndRenderTodos();
   }
 
+  onInputChange = event => {
+    const { newTodo } = this.state;
+    newTodo[event.target.name] = event.target.value;
+    this.setState({newTodo});
+  }
 
   render() {
     return (
       <main>
         <header>
-          <input onChange={this.onInputChange} type="text"></input>
+          <input onChange={this.onInputChange} name="title" type="text"></input>
+          <input onChange={this.onInputChange} name="description" type="text"></input>
+          {/* <input onChange={this.onInputChange} name="priority" type="number" min="1" max="3"></input> */}
+          <input onChange={this.onInputChange} name="url" type="text"></input>
           <button onClick={() => {this.addNewTodoAndRerender()}}>DODAJ</button>
         </header>
         <ul>
