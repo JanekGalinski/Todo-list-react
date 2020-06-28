@@ -51,20 +51,43 @@ class App extends React.Component {
 
   render() {
     return (
-      <main>
-        <header>
-          <input onChange={this.onInputChange} name="title" type="text"></input>
-          <input onChange={this.onInputChange} name="description" type="text"></input>
-          {/* <input onChange={this.onInputChange} name="priority" type="number" min="1" max="3"></input> */}
-          <input onChange={this.onInputChange} name="url" type="text"></input>
-          <button onClick={() => {this.addNewTodoAndRerender()}}>DODAJ</button>
-        </header>
-        <ul>
-          {this.state.todoList.map(todo => {
-            return <li key={todo.id}>{todo.title} <button onClick={() => { this.deleteAndRenderTodos(todo.id) }}>USUŃ</button></li>
-          })}
-        </ul>
-      </main>
+      <div className="container">
+          <main>
+            <header>
+              <h1>Dodaj nowe todo</h1>
+              <form>
+                <div className="form-group">
+                  <label forHtml="title">Podaj tytuł:</label>
+                  <input class="form-control" onChange={this.onInputChange} id="title" name="title" type="text"></input>
+                </div>
+                <div className="form-group">
+                  <label forHtml="title">Podaj opis:</label>
+                  <input class="form-control" onChange={this.onInputChange} id="description" name="description" type="text"></input>
+                </div>
+                <div className="form-group">
+                  <label forHtml="title">Podaj link:</label>
+                  <input class="form-control" onChange={this.onInputChange} id="url" name="url" type="text"></input>
+                </div>
+                
+                {/* <input onChange={this.onInputChange} name="priority" type="number" min="1" max="3"></input> */}
+                
+                <button type="submit" className="btn btn-primary" onClick={() => {this.addNewTodoAndRerender()}}>DODAJ</button>
+              </form>
+            </header>
+            <section>
+              <h1>Twoja lista</h1>
+              <ul className="list-group"> 
+                {this.state.todoList.map(todo => {
+                  return <li className="list-group-item" key={todo.id}>
+                    {todo.title}
+                    <button className="btn btn-danger" onClick={() => { this.deleteAndRenderTodos(todo.id) }}>USUŃ</button>
+                    </li>
+                })}
+              </ul>
+            </section>
+          </main>
+      </div>
+      
     )
   }
 }
