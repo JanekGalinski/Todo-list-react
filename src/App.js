@@ -36,6 +36,7 @@ class App extends React.Component {
           <main>
             <CreateNewTodo addNewTodoAndRerender={this.addNewTodoAndRerender} />
             <TodoList todoList={this.state.todoList} deleteAndRenderTodos={this.deleteAndRenderTodos}/>
+            <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
           </main>
       </div>
       

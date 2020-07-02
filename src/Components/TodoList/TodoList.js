@@ -1,5 +1,6 @@
 import React from 'react';
 import './TodoList.css';
+import Button from '../Button/Button';
 
 function TodoList({todoList, deleteAndRenderTodos}) {
     return (
@@ -11,7 +12,8 @@ function TodoList({todoList, deleteAndRenderTodos}) {
                 <h2>{todo.title}</h2>
                 <p>{todo.description}</p>
                 <a target="_blank" rel="noopener noreferrer" href={todo.url}>LINK</a>
-                <button className="btn btn-danger" onClick={() => { deleteAndRenderTodos(todo.id) }}>USUŃ</button>
+                <Button size={1} label="USUŃ" onClick={() => { deleteAndRenderTodos(todo.id) }}/>
+                {/* <button className="btn btn-danger">USUŃ</button> */}
                 </li>
             })}
             </ul>
